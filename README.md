@@ -1,11 +1,11 @@
 # Exp-6-Synchornous-counters - up counter and down counter 
-### AIM: To implement 4 bit up and down counters and validate  functionality.
+### AIM: To implement 3 bit up and down counters and validate  functionality.
 ### HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
 ### SOFTWARE REQUIRED:   Quartus prime
 ### THEORY 
 
 ## UP COUNTER 
-The counter is a digital sequential circuit and here it is a 4 bit counter, which simply means it can count from 0 to 15 and vice versa based upon the direction of counting (up/down). 
+The counter is a digital sequential circuit and here it is a 3 bit counter, which simply means it can count from 0 to 15 and vice versa based upon the direction of counting (up/down). 
 
 The counter (“count“) value will be evaluated at every positive (rising) edge of the clock (“clk“) cycle.
 The Counter will be set to Zero when “reset” input is at logic high.
@@ -31,8 +31,7 @@ The Q outputs of each flip-flop will serve as the respective binary bits of the 
  
  
 
-Four-bit “Up” Counter
-![image](https://user-images.githubusercontent.com/36288975/169644758-b2f4339d-9532-40c5-af40-8f4f8c942e2c.png)
+Three-bit “Up” Counter
 
 
 
@@ -40,11 +39,11 @@ Four-bit “Up” Counter
 
 As well as counting “up” from zero and increasing or incrementing to some preset value, it is sometimes necessary to count “down” from a predetermined value to zero allowing us to produce an output that activates when the zero count or some other pre-set value is reached.
 
-This type of counter is normally referred to as a Down Counter, (CTD). In a binary or BCD down counter, the count decreases by one for each external clock pulse from some preset value. Special dual purpose IC’s such as the TTL 74LS193 or CMOS CD4510 are 4-bit binary Up or Down counters which have an additional input pin to select either the up or down count mode.
-![image](https://user-images.githubusercontent.com/36288975/169644844-1a14e123-7228-4ed8-81a9-eb937dff4ac8.png)
+This type of counter is normally referred to as a Down Counter, (CTD). In a binary or BCD down counter, the count decreases by one for each external clock pulse from some preset value. Special dual purpose IC’s such as the TTL 74LS193 or CMOS CD4510 are 3-bit binary Up or Down counters which have an additional input pin to select either the up or down count mode.
 
 
-4-bit Count Down Counter
+
+3-bit Count Down Counter
 ### Procedure
 /* write all the steps invloved */
 1.Create a new project in QuartusII software.
@@ -60,30 +59,29 @@ This type of counter is normally referred to as a Down Counter, (CTD). In a bina
 ### PROGRAM 
 /*
 UP counter:
-module Counters(clk,A);
+module upcounter(clk,q1,q2,q3);
 input clk;
-output reg [3:0]A;
-always @(posedge clk)
+output reg q1,q2,q3;
+always@(posedge clk)
 begin
-	A[3]=(((A[0])&(A[1])&(A[2]))^A[3]);
-	A[2]=(((A[0])&(A[1]))^A[2]);
-	A[1]=(A[0])^A[1];
-	A[0]=A[0]^1;
+q3=(q1&q2)^q3;
+q2=q1^q2;
+q1=1^q1;
 end
 endmodule
 
 Down counter:
-module dCounters(clk,A);
+module downcounter(clk,q1,q2,q3);
 input clk;
-output reg [3:0]A;
+output reg q1,q2,q3;
 always@(posedge clk)
 begin
-	A[3]=(((~A[0])&(~A[1])&(~A[2]))^A[3]);
-	A[2]=(((~A[0])&(~A[1]))^A[2]);
-	A[1]=(~A[0])^A[1];
-	A[0]=1^A[0];
+q3=((~q2)&(~q1))^q3;
+q2=(~q1)^q2;
+q1=1^q1;
 end
 endmodule
+
 
 Program for flipflops  and verify its truth table in quartus using Verilog programming.
 Developed by: SHANMUGAKARTHIK G
@@ -97,34 +95,38 @@ RegisterNumber: 212223220105
 
 ### RTL LOGIC UP COUNTER AND DOWN COUNTER  
 UP counter:
-![image](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/63dcd9a4-0848-4df3-b73c-3f6adcdf6c8c)
+
+![IMG-20231227-WA0012](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/eada980b-df75-4a4b-9f2f-43c094e353c1)
 
 Down Counter:
-![image](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/d4c54a5a-52d7-405d-b7ee-d6cef7c69e3e)
 
-
-
-
+![IMG-20231227-WA0013](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/16437abe-eae3-4e39-aa27-483b55b3595a)
 
 
 ### TIMING DIGRAMS FOR COUNTER  
 
 UP counter:
-![image](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/9c1749d3-17a9-4975-a75b-ff26e1b10aa1)
+
+![IMG-20231227-WA0016](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/884297ae-6daa-437b-8f81-eb64e4ccf959)
+
+
 
 Down counter:
-![image](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/7ac2266f-6ccd-4e88-8ae8-6bfe5f470632)
+
+![IMG-20231227-WA0017](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/a3a6c4c8-51cd-4c51-ab1c-89db10ad9a56)
 
 
 
 ### TRUTH TABLE 
 
 UP counter:
-![image](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/04ffbed3-9b2a-43d9-9862-fa4cf8db1759)
+
+![IMG-20231227-WA0014 (2)](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/c966521a-d856-4b17-9511-301f62aa9e70)
+
 
 Down counter:
-![image](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/c3752907-e40f-422f-86ef-4ae1bc7bc416)
 
+![IMG-20231227-WA0014 (3)](https://github.com/Shanmugakarthik05/Exp-7-Synchornous-counters-/assets/149762972/44117a37-7b0b-419a-927a-ae57f2dd4d0b)
 
 
 
